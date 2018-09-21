@@ -23,7 +23,7 @@ const setJob = (job) => {
 
 const loadJob = (encoded) => {
     try {
-        setJob(Saver.Load(Saver.Decode(loadInputField.value)));
+        setJob(Saver.Load(Saver.Decode(encoded)));
     } catch(err) {
         console.error(err);
     }
