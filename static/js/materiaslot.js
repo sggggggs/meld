@@ -54,4 +54,12 @@ export default class MateriaSlot extends Widget {
 
         return [Data.getMateriaOptionName(this.materia), expected];
     }
+
+    set(materia) {
+        this.materia = Data.FindMateria(materia[0], materia[1]);
+    }
+
+    save() {
+        return [this.materia.stat, this.materia.grade];
+    }
 }

@@ -77,4 +77,12 @@ export default class Piece extends Widget {
     getEstimatedMateriaValues() {
         return this.materiaContainer.getEstimatedValues();
     }
+
+    set(materiaList) {
+        this.materiaContainer.set(materiaList);
+    }
+
+    save() {
+        return [this.piece.name, this.materiaContainer.save()];
+    }
 }

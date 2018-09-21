@@ -15,15 +15,21 @@ export default class Job extends Widget {
         this.onChanged();
     }
 
-    createNode() {            
-        const header = document.createElement("h1");
-        header.textContent = this.job;
-
+    createNode() {
         const results = document.createElement("pre");
         results.classList = "results";
 
         this._node = document.createElement("div");
-        this._node.append(header, ...this.slots.map(slot => slot.node()), results);
+        this._node.append(...this.slots.map(slot => slot.node()), results);
+    }
+
+    getSlot(slot) {
+        for (let s of this.slots) {
+            if (s.slot === slot) {
+                return s;
+            }
+        }
+        return null;
     }
 
     getTotals() {
@@ -54,5 +60,29 @@ export default class Job extends Widget {
         const totals = this.getTotals();
         const materia = this.getEstimatedMateriaValues();
         this.node().querySelector(".results").textContent = JSON.stringify([totals, materia], null, 2);
+    }
+
+    save() {
+        const obj = {
+            "job": this.job,
+            "slots": {}
+        }
+
+        this.slots.forEach(slot => {
+            obj.slots[slot.slot] = slot.save();
+        });
+
+        return obj;
+    }
+
+    static load(obj) {
+        const job = new Job(obj.job);
+        for (let s in obj.slots) {
+            const slot = job.getSlot(s);
+            const pieceName = obj.slots[s][0];
+            const materiaList = obj.slots[s][1];
+            slot.set(pieceName, materiaList);
+        }
+        return job;
     }
 }

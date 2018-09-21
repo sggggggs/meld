@@ -8,7 +8,7 @@ export default class Slot extends Widget {
         super();
         this.slot = slot;
         this.job = job;
-        this.pieces = Data.JobGear[job].filter(piece => piece.slot === slot).map(piece => new Piece(piece, job));
+        this.pieces = Data.JobGear[job].filter(piece => piece.slot === Data.SlotToType(slot)).map(piece => new Piece(piece, job));
         this._currentPiece = this.pieces[this.pieces.length - 1];
         this.pieces.forEach(piece => {
             piece.on("changed", (piece) => {
@@ -30,6 +30,15 @@ export default class Slot extends Widget {
     }
 
     set currentPiece(piece) {
+        if (typeof piece === "string") {
+            for (let p of this.pieces) {
+                if (p.piece.name === piece) {
+                    piece = p;
+                    break;
+                }
+            }
+        }
+
         this._currentPiece = piece;
         this.pieces.forEach(p => {
             p.node().classList.toggle("selected", p === this._currentPiece);
@@ -39,5 +48,14 @@ export default class Slot extends Widget {
 
     get currentPiece() {
         return this._currentPiece;
+    }
+
+    set(pieceName, materiaList) {
+        this.currentPiece = pieceName;
+        this.currentPiece.set(materiaList);
+    }
+    
+    save() {
+        return this.currentPiece.save();
     }
 }

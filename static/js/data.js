@@ -66,7 +66,7 @@ Data.getMateriaName = (materia) => {
     return `${stats[materia.stat]} Materia ${Data.getGradeNumeral(materia.grade)}`;
 }
 
-Data.Slots = ["weapon", "secondary", "head", "body", "hands", "waist", "legs", "feet", "earrings", "necklace", "bracelet", "ring", "ring"];
+Data.Slots = ["weapon", "secondary", "head", "body", "hands", "waist", "legs", "feet", "earrings", "necklace", "bracelet", "ring1", "ring2"];
 
 Data.Materia = [
     {  "stat": "Spell Speed", "grade": 1, "amount": 2, },
@@ -184,6 +184,14 @@ Data.Materia = [
     return result;
 });
 
+Data.FindMateria = (stat, grade) => {
+    for (let m of Data.Materia) {
+        if (m.stat === stat && m.grade === grade) {
+            return m;
+        }
+    }
+}
+
 Data.ValidStats = {
     "WHM": ["Mind", "Direct Hit", "Critical Hit", "Determination", "Spell Speed", "Piety", "Vitality"],
     "ALC": ["Craftsmanship", "Control", "CP"]
@@ -228,6 +236,15 @@ Data.Stats = [
     "Control",
     "CP"
 ];
+
+Data.SlotToType = (slot) => {
+    switch (slot) {
+        case "ring1":
+        case "ring2":
+            return "ring";
+    }
+    return slot;
+}
 
 Data.JobGear = {};
 Data.Jobs.forEach(job => Data.JobGear[job] = Data.Gear.filter(piece => piece.job === job));

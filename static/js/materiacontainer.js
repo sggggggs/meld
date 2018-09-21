@@ -57,4 +57,14 @@ export default class MateriaContainer extends Widget {
             return acc;
         }, {});
     }
+    
+    set(materiaList) {
+        materiaList.forEach((materia, index) => {
+            this.materiaSlots[index].set(materia);
+        });
+    }
+
+    save() {
+        return this.materiaSlots.filter(slot => slot.materia).map(slot => slot.save());
+    }
 }

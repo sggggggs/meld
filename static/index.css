@@ -1,4 +1,21 @@
 
+header, #container {
+    position: absolute;
+    width: 100%;
+}
+
+header {
+    top: 0;
+    height: 64px;
+    border-bottom: 1px solid black;
+}
+
+#container {
+    top: 64px;
+    bottom: 0;
+    overflow-y: auto;
+}
+
 .slot-table, .slot-table th, .slot-table td {
     border: 1px solid black;
     border-collapse: collapse;
