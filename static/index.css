@@ -1,0 +1,87 @@
+
+.slot-table, .slot-table th, .slot-table td {
+    border: 1px solid black;
+    border-collapse: collapse;
+}
+
+.slot-table {
+    margin-top: 5px;
+    margin-bottom: 5px;
+    border: 2px solid black;
+}
+
+.slot-header-cell:first-child {
+    width: 20em;
+}
+
+.slot-header-cell {
+    width: 10em;
+}
+
+.piece-row-cell-materia {
+    text-align: center;
+}
+
+.piece-row.selected {
+    background-color: honeydew;
+}
+
+.piece-entry-container {
+    display: inline-flex;
+    width: 100%;
+}
+
+.piece-entry {
+    flex: 1 0 auto;
+    text-align: center;
+}
+
+.piece-add, .piece-add-div {
+    font-size: 8pt;
+    color: forestgreen;
+}
+
+.piece-add.free, .piece-add-div.free {
+    display: none;
+}
+
+.piece-cap, .piece-cap-div {
+    font-size: 8pt;
+}
+
+.piece-total.overcap {
+    color: red;
+}
+
+.materia-slot {
+    width: 16px;
+    height: 16px;
+    margin-left: 1px;
+    margin-right: 1px;
+    display: inline-block;
+    border: 1px solid black;
+    font-size: 10pt;
+    text-align: center;
+}
+
+.materia-slot.guaranteed {
+    border-color: dodgerblue;
+}
+
+.materia-modal {
+    position: absolute;
+    padding: 1em;
+    box-shadow: 2px 2px 0px black;
+    border: 1px solid black;
+    background: white;
+    display: none;
+    text-align: center;
+}
+
+#materia-modal-header {
+    font-weight: bold;
+}
+
+#materia-modal-dropdown {
+    width: 100%;
+}

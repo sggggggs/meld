@@ -1,0 +1,65 @@
+<html>
+    <head>
+        <template id="template-row">
+            <tr class="piece-row">
+            </tr>
+        </template>
+        <template id="template-row-cell">
+            <td class="piece-row-cell %stat%">
+                <span class="piece-entry-container">
+                    <span class="piece-entry"><span class="piece-stat"></span><span class="piece-add-div">+</span><span class="piece-add"></span></span>
+                    <span class="piece-entry"><span class="piece-total"></span><span class="piece-cap-div">/</span><span class="piece-cap"></span></span>
+                </span>
+            </td>
+        </template>
+        <template id="template-row-header">
+            <td class="piece-row-cell piece-row-header">
+                %value%
+            </td>
+        </template>
+        <template id="template-row-cell-materia">
+            <td class="piece-row-cell-materia"></td>
+        </template>
+        <template id="template-table">
+            <table class="slot-table">
+                <tr class="slot-header">
+                </tr>
+            </table>
+        </template>
+        <template id="template-header-cell">
+            <th class="slot-header-cell">%value%</th>
+        </template>
+        <template id="template-materia-slot">
+            <div class="materia-slot">
+                    &nbsp;
+            </div>
+        </template>
+        <template id="template-materia-modal">
+            <div class="materia-modal">
+                <div id="materia-modal-header"></div>
+                <select id="materia-modal-dropdown">
+                </select>
+            </div>
+        </template>
+        <link rel="stylesheet" type="text/css" href="index.css">
+    </head>
+    <body>
+        <div id="container">
+
+        </div>
+    </body>
+</html>
+<script type="module">
+    import Job from "./js/job.js";
+    import MateriaModal from "./js/materiamodal.js";
+    
+    const onLoad = (job) => {
+        const container = document.getElementById("container");
+        container.appendChild(MateriaModal.Instance.node());
+        
+        const j = new Job(job);
+        container.appendChild(j.node());
+    };
+    
+    onLoad("ALC");
+</script>
