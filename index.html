@@ -42,6 +42,7 @@
             </div>
         </template>
         <link rel="stylesheet" type="text/css" href="index.css">
+        <script src="./index.js" type="module"></script>
     </head>
     <body>
         <header>
@@ -53,62 +54,3 @@
         <div id="container"></div>
     </body>
 </html>
-<script type="module">
-    import Job from "./js/job.js";
-    import MateriaModal from "./js/materiamodal.js";
-    import Data from "./js/data.js";
-    import Saver from "./js/saver.js";
-    
-    const jobPicker = document.getElementById("job-picker");
-    const container = document.getElementById("container");
-    const generateSaveButton = document.getElementById("generate-save");
-    const loadSaveButton = document.getElementById("load-save");
-    const generateOutputField = document.getElementById("generate-output");
-    const loadInputField = document.getElementById("load-input");
-
-    let currentJob = null;
-
-    const setJob = (job) => {
-        currentJob = job;
-        jobPicker.value = job.job;
-        while (container.firstChild) {
-            container.removeChild(container.firstChild);
-        }
-        container.appendChild(currentJob.node());
-    }
-
-    const onload = () => {
-        document.body.appendChild(MateriaModal.Instance.node());
-        jobPicker.append(
-            document.createElement("option"),
-            ...Data.Jobs.map(job => {
-                const option = document.createElement("option");
-                option.textContent = job;
-                option.value = job;
-                return option;
-            })
-        );
-        jobPicker.addEventListener("change", event => {
-            const job = event.target.value;
-            if (job) {
-                currentJob = new Job(job);
-                setJob(currentJob);
-            }
-        });
-        generateSaveButton.addEventListener("click", () => {
-            if (currentJob) {
-                console.log(Saver.Generate(currentJob));
-                generateOutputField.value = Saver.Encode(Saver.Generate(currentJob));
-            }
-        });
-        loadSaveButton.addEventListener("click", () => {
-            try {
-                setJob(Saver.Load(Saver.Decode(loadInputField.value)));
-            } catch(err) {
-                console.error(err);
-            }
-        });
-    };
-
-    window.onload = onload;
-</script>
